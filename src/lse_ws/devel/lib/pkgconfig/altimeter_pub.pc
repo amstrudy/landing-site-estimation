@@ -1,0 +1,8 @@
+prefix=/home/anjasheppard/landing-site-estimation/src/lse_ws/devel
+
+Name: altimeter_pub
+Description: Description of altimeter_pub
+Version: 0.1.0
+Cflags: 
+Libs: -L/home/anjasheppard/landing-site-estimation/src/lse_ws/devel/lib -laltimeter_pub
+Requires: nav_msgs roscpp std_msgs

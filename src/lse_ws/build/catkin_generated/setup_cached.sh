@@ -7,7 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/anjasheppard/landing-site-estimation/src/lse_ws/devel:$CMAKE_PREFIX_PATH"
 export PWD="/home/anjasheppard/landing-site-estimation/src/lse_ws/build"
-export ROSLISP_PACKAGE_DIRECTORIES="/home/anjasheppard/landing-site-estimation/src/lse_ws/devel/share/common-lisp"
-export ROS_PACKAGE_PATH="/home/anjasheppard/landing-site-estimation/src/lse_ws/src:$ROS_PACKAGE_PATH"
