@@ -5,5 +5,9 @@
 		<param name="baud" value="4800" />
 		<param name="frame_id" value="gps_initial_frame" />
 		<param name="useRMC" value="false" />
+		<remap from="/time_reference" to="/gps/time_reference" />
+		<remap from="/fix" to="/gps/fix" />
+		<remap from="/vel" to="/gps/vel" />
 	</node>
+	<node name="navx_publisher_node" pkg="navx_publisher" type="navx_publisher_node" output="screen" />
 </launch>

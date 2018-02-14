@@ -119,6 +119,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/anjasheppard/landing-site-estimation/src/lse_ws/build/gtest/cmake_install.cmake")
   include("/home/anjasheppard/landing-site-estimation/src/lse_ws/build/altimeter_pub/cmake_install.cmake")
   include("/home/anjasheppard/landing-site-estimation/src/lse_ws/build/controller_node/cmake_install.cmake")
+  include("/home/anjasheppard/landing-site-estimation/src/lse_ws/build/navx_publisher/cmake_install.cmake")
 
 endif()
 

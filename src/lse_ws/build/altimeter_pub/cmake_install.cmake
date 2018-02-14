@@ -33,7 +33,43 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/altimeter_pub/msg" TYPE FILE FILES "/home/anjasheppard/landing-site-estimation/src/lse_ws/src/altimeter_pub/msg/yocto_msg.msg")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/altimeter_pub/cmake" TYPE FILE FILES "/home/anjasheppard/landing-site-estimation/src/lse_ws/build/altimeter_pub/catkin_generated/installspace/altimeter_pub-msg-paths.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/anjasheppard/landing-site-estimation/src/lse_ws/devel/include/altimeter_pub")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/anjasheppard/landing-site-estimation/src/lse_ws/devel/share/roseus/ros/altimeter_pub")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/anjasheppard/landing-site-estimation/src/lse_ws/devel/share/common-lisp/ros/altimeter_pub")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/anjasheppard/landing-site-estimation/src/lse_ws/devel/share/gennodejs/ros/altimeter_pub")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  execute_process(COMMAND "/usr/bin/python" -m compileall "/home/anjasheppard/landing-site-estimation/src/lse_ws/devel/lib/python2.7/dist-packages/altimeter_pub")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/anjasheppard/landing-site-estimation/src/lse_ws/devel/lib/python2.7/dist-packages/altimeter_pub")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/anjasheppard/landing-site-estimation/src/lse_ws/build/altimeter_pub/catkin_generated/installspace/altimeter_pub.pc")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/altimeter_pub/cmake" TYPE FILE FILES "/home/anjasheppard/landing-site-estimation/src/lse_ws/build/altimeter_pub/catkin_generated/installspace/altimeter_pub-msg-extras.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")

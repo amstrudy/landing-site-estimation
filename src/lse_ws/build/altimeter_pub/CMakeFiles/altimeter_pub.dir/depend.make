@@ -7,6 +7,8 @@ altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /home/
 altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /home/anjasheppard/VirtualHub/Cpp_API/Sources/yocto_altitude.h
 altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /home/anjasheppard/VirtualHub/Cpp_API/Sources/yocto_api.h
 altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /home/anjasheppard/VirtualHub/Cpp_API/Sources/yocto_genericsensor.h
+altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /home/anjasheppard/VirtualHub/Cpp_API/Sources/yocto_temperature.h
+altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /home/anjasheppard/landing-site-estimation/src/lse_ws/devel/include/altimeter_pub/yocto_msg.h
 altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /home/anjasheppard/landing-site-estimation/src/lse_ws/src/altimeter_pub/src/altimeter_publisher.cpp
 altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Point.h
 altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Pose.h
@@ -72,6 +74,7 @@ altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /opt/r
 altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /opt/ros/kinetic/include/ros/wall_timer.h
 altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /opt/ros/kinetic/include/ros/wall_timer_options.h
 altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /opt/ros/kinetic/include/rosconsole/macros_generated.h
+altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /opt/ros/kinetic/include/sensor_msgs/Temperature.h
 altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /opt/ros/kinetic/include/std_msgs/Header.h
 altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
 altimeter_pub/CMakeFiles/altimeter_pub.dir/src/altimeter_publisher.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h

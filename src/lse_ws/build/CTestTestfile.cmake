@@ -7,3 +7,4 @@
 subdirs(gtest)
 subdirs(altimeter_pub)
 subdirs(controller_node)
+subdirs(navx_publisher)

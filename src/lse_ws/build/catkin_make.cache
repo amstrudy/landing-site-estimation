@@ -1,2 +1,2 @@
-altimeter_pub:controller_node
+altimeter_pub:controller_node:navx_publisher
 -DCATKIN_DEVEL_PREFIX=/home/anjasheppard/landing-site-estimation/src/lse_ws/devel -DCMAKE_INSTALL_PREFIX=/home/anjasheppard/landing-site-estimation/src/lse_ws/install -G Unix Makefiles
