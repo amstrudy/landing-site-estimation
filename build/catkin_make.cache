@@ -1,2 +1,0 @@
-lse_ws/src/altimeter_pub
--DCATKIN_DEVEL_PREFIX=/home/anjasheppard/landing-site-estimation/devel -DCMAKE_INSTALL_PREFIX=/home/anjasheppard/landing-site-estimation/install -G Unix Makefiles
