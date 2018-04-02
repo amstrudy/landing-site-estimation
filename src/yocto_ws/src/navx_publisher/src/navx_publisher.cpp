@@ -10,7 +10,7 @@
 #include "sensor_msgs/Imu.h"
 #include "nav_msgs/Odometry.h"
 #include "geometry_msgs/Vector3.h"
-#include "/home/anjasheppard/landing-site-estimation/navxTimeSync/AHRS.h"
+#include "../../../../../navxTimeSync/AHRS.h"
 #include "navx_publisher/stampedUInt64.h"
 #include <tf/transform_datatypes.h>
 
