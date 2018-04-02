@@ -1,8 +1,0 @@
-prefix=/home/anjasheppard/landing-site-estimation/src/lse_ws/devel
-
-Name: controller_node
-Description: Description of controller_node
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/anjasheppard/landing-site-estimation/src/lse_ws/devel/lib 
-Requires: 

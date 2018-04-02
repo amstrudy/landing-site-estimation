@@ -1,8 +1,0 @@
-prefix=/home/anjasheppard/landing-site-estimation/src/lse_ws/devel
-
-Name: navx_publisher
-Description: Description of navx_publisher
-Version: 0.0.0
-Cflags: -I/home/anjasheppard/landing-site-estimation/src/lse_ws/devel/include
-Libs: -L/home/anjasheppard/landing-site-estimation/src/lse_ws/devel/lib 
-Requires: message_runtime
