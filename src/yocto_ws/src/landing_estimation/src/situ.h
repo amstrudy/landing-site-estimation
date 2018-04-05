@@ -14,27 +14,31 @@ An addition to the Cambridge Rocketry Simulator to support predictions during a 
 //#include "descentcalc.h"
 //#include "MonteFy.h"
 //#include <chrono>
-#include <Eigen.h>
+#include <Eigen/Dense>
 
 #include <ros/ros.h>
 #include <tf/transform_broadcaster.h>
-#include <nav_msgs/Odometry.h>
+#include <sensor_msgs/NavSatFix.h>
 
-struct ballistic {
+using namespace std; 
+using namespace Eigen;
+
+struct ballistic 
+{
 private:
 	vector<double> times;
-	vector<vector3> positions;
+	vector<Vector3d> positions;
 public:
-	void add_point(vector3 position, double time){
-		positions.append(position);
-		times.append(time)
+	void add_point(Vector3d position, double time){
+		positions.push_back(position);
+		times.push_back(time);
 	}
 
-	vector3 getPosition(int idx) { return positions[idx]; };
+	Vector3d getPosition(int idx) { return positions[idx]; };
 	double getTime(int idx) { return times[idx]; };
 
 	int size() { return positions.size(); };
-}
+};
 
 class Situ{
 private:
@@ -45,20 +49,20 @@ private:
 	//bool newState = false;
 	
 	double currentTime = 0;
-	vector3 position = vector3(0,0,0);
-	vector3 velocity = vector3(0,0,0);
+	Vector3d position = Vector3d(0,0,0);
+	Vector3d velocity = Vector3d(0,0,0);
 	float exponential_smoothing = 0.9;
 
-	const vector3 gravity = vector3(0,0,-9.8);
+	const Vector3d gravity = Vector3d(0,0,-9.8);
 	float delta_sim_time = 0.1;
 
-	vector3 calc_sim_drag() { return vector3(0,0,0); };
+	Vector3d calc_sim_drag() { return Vector3d(0,0,0); };
     //int getCurrentCondition();//0: ascent, 1: free-fall, 2: parachute, 3: landing
 
-	//vector3 x; //returns x, y, z position
-	//vector3 v; //returns x, y, z velocity
+	//Vector3d x; //returns x, y, z position
+	//Vector3d v; //returns x, y, z velocity
 	//quaternion heading(); //returns heading of the rocket
-	//vector3 get_ang_vel(); //returns angular velocity of the rocket
+	//Vector3d get_ang_vel(); //returns angular velocity of the rocket
 public:
        
 	//double getCurrentTime();
@@ -67,7 +71,8 @@ public:
 	//vector<RKF_data> SituCalc(bool rand, MonteFy StochTab);
 	//OutputData SituMonte(float runtime);
 
-	void updateState(cons sensor_msgs::NavSatFix::ConstPtr& msg);
-	vector3 predictArc();
+	void updateState(const sensor_msgs::NavSatFix::ConstPtr& msg);
+	Vector3d predictArc();
 };
 
+#endif
