@@ -10,7 +10,7 @@ void Situ::updateState(const sensor_msgs::NavSatFix::ConstPtr& msg)
 {
 	double deltaTime = currentTime -  
 	currentTime =
-	if (position != vector3(0,0,0) and currentTime != 0){ 
+	if (position != Vector3d(0,0,0) and currentTime != 0){ 
 	velocity = exponential_smoothing * velocity + (1. - exponential_smoothing * ( - position) / deltaTime;
 
 	history.add_point(position, currentTime);
@@ -19,18 +19,18 @@ void Situ::updateState(const sensor_msgs::NavSatFix::ConstPtr& msg)
 }
 
 ballistic Situ::predictArc(){
-	final_altitude = history.getPosition[0].z;
+	double final_altitude = history.getPosition(0).z();
 
 	ballistic sim_ballistic;
 	sim_ballistic.add_point(position,currentTime);
 
 	double simTime = currentTime;
-	vector3 simPosition = position;
-	vector3 simVelocity = velocity;
+	Vector3d simPosition = position;
+	Vector3d simVelocity = velocity;
 
-	vector3 simAcceleration;
+	Vector3d simAcceleration;
 
-	while (sim_ballistic.getPosition(sim_ballistic.size() - 1).z > final_altitude) {
+	while (sim_ballistic.getPosition(sim_ballistic.size() - 1).z() > final_altitude) {
 		simAcceleration = gravity + calc_sim_drag();
 
 		simTime += delta_sim_time;
@@ -46,13 +46,15 @@ ballistic Situ::predictArc(){
 
 int main(int argc, char **argv) 
 {
-	ros::init(arc, argv, "prediction");
+	ros::init(argc, argv, "prediction");
 
 	ros::NodeHandle n;
 
-	ros::Subscriber location_sub = n.subscribe("/gps/fix",1000,updateState);
+	Situ predictor;
 
-	ros::Publisher prediction_pub = n.advertise<sensor_msgs::NavSatFix>("prediction",1000)
+	ros::Subscriber location_sub = n.subscribe("/gps/fix",1000,&Situ::updateState,&predictor);
+
+	ros::Publisher prediction_pub = n.advertise<sensor_msgs::NavSatFix>("prediction",1000);
 	ros::Rate loop_rate(1);
 
 	int count = 0;
@@ -64,17 +66,18 @@ int main(int argc, char **argv)
 		loop_rate.sleep();
 		++count;
 	}
+}
 
 /*
 int Situ::getCurrentCondition(){
 
 };
 
-vector3 Situ::get_x(){
+Vector3d Situ::get_x(){
 	
 };
 
-vector3 Situ::get_v(){
+Vector3d Situ::get_v(){
 
 };
 
@@ -93,7 +96,7 @@ quaternion Situ::get_quat(){
 
 };
 
-vector3 Situ::get_ang_vel(){
+Vector3d Situ::get_ang_vel(){
 
 };
 
@@ -112,7 +115,7 @@ Situ::getCurrentState(){
 
     //Set the current position for simulation
 
-    vector3 x_pos = get_x();
+    Vector3d x_pos = get_x();
 
     z0.push_back(x_pos.e1);
     z0.push_back(x_pos.e2);
@@ -129,7 +132,7 @@ Situ::getCurrentState(){
 
     //Set the current velocity for the simulation
     
-    vector3 vel = get_v();
+    Vector3d vel = get_v();
 
     z0.push_back(v.e1);
     z0.push_back(v.e2);
@@ -137,7 +140,7 @@ Situ::getCurrentState(){
     
     //Set the current angular velocity for the simulation
 
-    vector3 ang_vel = get_ang_vel();
+    Vector3d ang_vel = get_ang_vel();
     
     z0.push_back(ang_vel.e1);
     z0.push_back(ang_vel.e2);

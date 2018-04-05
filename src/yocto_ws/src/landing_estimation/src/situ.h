@@ -72,7 +72,7 @@ public:
 	//OutputData SituMonte(float runtime);
 
 	void updateState(const sensor_msgs::NavSatFix::ConstPtr& msg);
-	Vector3d predictArc();
+	ballistic predictArc();
 };
 
 #endif
