@@ -146,7 +146,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third_party)
 
 add_compile_options(-std=c++11)
 add_executable(${PROJECT_NAME}_prediction_node src/situ.cpp)
-add_executable(${PROJECT_NAME}_wind_node src/windspeed.cpp)
+#add_executable(${PROJECT_NAME}_wind_node src/windspeed.cpp)
 
 
 ## Rename C++ executable without prefix
