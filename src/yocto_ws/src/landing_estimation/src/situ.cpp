@@ -8,14 +8,15 @@ Author: Forrest Eli Hurley
 
 void Situ::updateState(const sensor_msgs::NavSatFix::ConstPtr& msg)
 {
-	double deltaTime = currentTime -  
-	currentTime =
+	double deltaTime = currentTime - msg->header.stamp.sec;
+	Vector3d newPosition = Vector3d(msg->latitude,msg->longitude,msg->altitude); 
 	if (position != Vector3d(0,0,0) and currentTime != 0){ 
-	velocity = exponential_smoothing * velocity + (1. - exponential_smoothing * ( - position) / deltaTime;
+	velocity = exponential_smoothing * velocity + (1. - exponential_smoothing) * (newPosition - position) / deltaTime;
 
 	history.add_point(position, currentTime);
 	}
-	position =  
+	position = newPosition; 
+	currentTime = msg->header.stamp.sec;
 }
 
 ballistic Situ::predictArc(){
@@ -34,7 +35,7 @@ ballistic Situ::predictArc(){
 		simAcceleration = gravity + calc_sim_drag();
 
 		simTime += delta_sim_time;
-		simPosition += delta_sim_time * ( sim_velocity + 0.5 * simAcceleration * delta_sim_time);
+		simPosition += delta_sim_time * ( simVelocity + 0.5 * simAcceleration * delta_sim_time);
 		simVelocity += delta_sim_time * simAcceleration;
 
 		sim_ballistic.add_point(simPosition, simTime);		
