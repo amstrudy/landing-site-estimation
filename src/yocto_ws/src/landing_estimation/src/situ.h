@@ -19,6 +19,7 @@ An addition to the Cambridge Rocketry Simulator to support predictions during a 
 #include <ros/ros.h>
 #include <tf/transform_broadcaster.h>
 #include <sensor_msgs/NavSatFix.h>
+#include <geodesy/utm.h>
 
 using namespace std; 
 using namespace Eigen;
@@ -27,14 +28,14 @@ struct ballistic
 {
 private:
 	vector<double> times;
-	vector<Vector3d> positions;
+	vector<geodesy::UTMPoint> positions;
 public:
-	void add_point(Vector3d position, double time){
+	void add_point(geodesy::UTMPoint position, double time){
 		positions.push_back(position);
 		times.push_back(time);
 	}
 
-	Vector3d getPosition(int idx) { return positions[idx]; };
+	geodesy::UTMPoint getPosition(int idx) { return positions[idx]; };
 	double getTime(int idx) { return times[idx]; };
 
 	int size() { return positions.size(); };
@@ -49,7 +50,7 @@ private:
 	//bool newState = false;
 	
 	double currentTime = 0;
-	Vector3d position = Vector3d(0,0,0);
+	geodesy::UTMPoint position;
 	Vector3d velocity = Vector3d(0,0,0);
 	float exponential_smoothing = 0.9;
 

@@ -11,36 +11,39 @@ void Situ::updateState(const sensor_msgs::NavSatFix::ConstPtr& msg)
 {
 	double deltaTime = currentTime - msg->header.stamp.sec;
 	geodesy::UTMPoint utm_pt(geodesy::toMsg(*msg));
+	Vector3d oldPosition = Vector3d(position.easting,position.northing,position.altitude);
 	Vector3d newPosition = Vector3d(utm_pt.easting,utm_pt.northing,utm_pt.altitude); 
-	if (position != Vector3d(0,0,0) and currentTime != 0){ 
-		velocity = exponential_smoothing * velocity + (1. - exponential_smoothing) * (newPosition - position) / deltaTime;
-
-		history.add_point(position, currentTime);
-	}
-	position = newPosition; 
 	currentTime = msg->header.stamp.sec;
+	if (position.easting != 0 && position.northing != 0 && position.altitude != 0 && currentTime != 0){ 
+		velocity = exponential_smoothing * velocity + (1. - exponential_smoothing) * (newPosition - oldPosition) / deltaTime;
+
+		history.add_point(utm_pt, currentTime);
+	}
+	position = utm_pt; 
 }
 
 ballistic Situ::predictArc(){
-	double final_altitude = history.getPosition(0).z();
+	double final_altitude = history.getPosition(0).altitude;
 
 	ballistic sim_ballistic;
 	sim_ballistic.add_point(position,currentTime);
 
 	double simTime = currentTime;
-	Vector3d simPosition = position;
+	Vector3d simPosition = Vector3d(position.easting,position.northing,position.altitude);
 	Vector3d simVelocity = velocity;
 
 	Vector3d simAcceleration;
 
-	while (sim_ballistic.getPosition(sim_ballistic.size() - 1).z() > final_altitude) {
+	while (sim_ballistic.getPosition(sim_ballistic.size() - 1).altitude > final_altitude) {
 		simAcceleration = gravity + calc_sim_drag();
 
 		simTime += delta_sim_time;
 		simPosition += delta_sim_time * ( simVelocity + 0.5 * simAcceleration * delta_sim_time);
 		simVelocity += delta_sim_time * simAcceleration;
 
-		sim_ballistic.add_point(simPosition, simTime);		
+		geodesy::UTMPoint utm_pt(simPosition.x(),simPosition.y(),simPosition.z(),position.zone,position.band);
+
+		sim_ballistic.add_point(utm_pt, simTime);		
 	}
 
 	return sim_ballistic;
@@ -60,9 +63,24 @@ int main(int argc, char **argv)
 	ros::Publisher prediction_pub = n.advertise<sensor_msgs::NavSatFix>("prediction",1000);
 	ros::Rate loop_rate(1);
 
+	ballistic predicted_ballistic;
+
 	int count = 0;
 	while(ros::ok())
 	{
+		predicted_ballistic = predictor.predictArc();
+		geodesy::UTMPoint finalLocation = predicted_ballistic.getPosition( predicted_ballistic.size() - 1 );
+	
+		sensor_msgs::NavSatFix msg;
+		msg.header.stamp = ros::Time(predicted_ballistic.getTime( predicted_ballistic.size() - 1));
+		
+		geographic_msgs::GeoPoint geoPosition = toMsg(finalLocation);
+		
+		msg.latitude = geoPosition.latitude;
+		msg.longitude = geoPosition.longitude;
+		msg.altitude = geoPosition.altitude;
+
+		prediction_pub.publish(msg);
 
 		ros::spinOnce();
 		
