@@ -9,11 +9,16 @@ Author: Forrest Eli Hurley
 
 void Situ::updateState(const sensor_msgs::NavSatFix::ConstPtr& msg)
 {
-	double deltaTime = currentTime - msg->header.stamp.sec;
+	double tempTime = msg->header.stamp.sec;
+	if (msg->header.stamp.sec == 0){
+		tempTime = ros::Time::now().toSec();
+	}
+
+	double deltaTime = currentTime - tempTime;
 	geodesy::UTMPoint utm_pt(geodesy::toMsg(*msg));
 	Vector3d oldPosition = Vector3d(position.easting,position.northing,position.altitude);
 	Vector3d newPosition = Vector3d(utm_pt.easting,utm_pt.northing,utm_pt.altitude); 
-	currentTime = msg->header.stamp.sec;
+	currentTime = tempTime;
 	if (position.easting != 0 && position.northing != 0 && position.altitude != 0 && currentTime != 0){ 
 		velocity = exponential_smoothing * velocity + (1. - exponential_smoothing) * (newPosition - oldPosition) / deltaTime;
 
