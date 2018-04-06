@@ -5,15 +5,17 @@ Situ.cpp
 Author: Forrest Eli Hurley
 */
 #include "situ.h"
+#include <geodesy/utm.h>
 
 void Situ::updateState(const sensor_msgs::NavSatFix::ConstPtr& msg)
 {
 	double deltaTime = currentTime - msg->header.stamp.sec;
-	Vector3d newPosition = Vector3d(msg->latitude,msg->longitude,msg->altitude); 
+	geodesy::UTMPoint utm_pt(geodesy::toMsg(*msg));
+	Vector3d newPosition = Vector3d(utm_pt.easting,utm_pt.northing,utm_pt.altitude); 
 	if (position != Vector3d(0,0,0) and currentTime != 0){ 
-	velocity = exponential_smoothing * velocity + (1. - exponential_smoothing) * (newPosition - position) / deltaTime;
+		velocity = exponential_smoothing * velocity + (1. - exponential_smoothing) * (newPosition - position) / deltaTime;
 
-	history.add_point(position, currentTime);
+		history.add_point(position, currentTime);
 	}
 	position = newPosition; 
 	currentTime = msg->header.stamp.sec;
