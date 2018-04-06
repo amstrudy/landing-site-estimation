@@ -24,21 +24,40 @@ An addition to the Cambridge Rocketry Simulator to support predictions during a 
 using namespace std; 
 using namespace Eigen;
 
+struct posTime
+{
+	double time;
+	geodesy::UTMPoint position;
+
+	posTime() {};
+	posTime(double inTime, geodesy::UTMPoint inPosition) : time(inTime), position(inPosition) {};
+};
+
 struct ballistic 
 {
 private:
-	vector<double> times;
-	vector<geodesy::UTMPoint> positions;
+	vector<posTime> points;
 public:
 	void add_point(geodesy::UTMPoint position, double time){
-		positions.push_back(position);
-		times.push_back(time);
+		points.push_back(posTime(time,position));
 	}
 
-	geodesy::UTMPoint getPosition(int idx) { return positions[idx]; };
-	double getTime(int idx) { return times[idx]; };
+	geodesy::UTMPoint getPosition(int idx) { return points[idx].position; };
+	double getTime(int idx) { return points[idx].time; };
 
-	int size() { return positions.size(); };
+	posTime getFirst()
+	{
+		if (points.size() > 0) return points[0];
+		return posTime();
+	}
+
+	posTime getLast()
+	{
+		if (points.size() > 0) return points[points.size() - 1];
+		return posTime();
+	}
+
+	int size() { return points.size(); };
 };
 
 class Situ{
